@@ -1,0 +1,9 @@
+[submodule "blingbling"]
+	path = blingbling
+	url = git://github.com/cedlemo/blingbling.git
+[submodule "scratch"]
+	path = scratch
+	url = git://github.com/proteansec/awesome-scratch.git
+[submodule "vicious"]
+	path = vicious
+	url = http://git.sysphere.org/vicious/
