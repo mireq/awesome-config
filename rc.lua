@@ -342,7 +342,6 @@ vicious.register(memwidget, vicious.widgets.mem, function(widget, args) return "
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.widget_cpu)
 cpuwidget = wibox.widget.textbox()
---vicious.register(cpuwidget, vicious.widgets.cpu, '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9">$1% </span></span>', 3)
 vicious.register(cpuwidget, vicious.widgets.cpu, function(widget, args) return '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9">' .. string.format("%2d", args[1]) .. "% </span></span>" end, 13)
 cpuicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(tasks, false) end)))
 
@@ -420,9 +419,22 @@ function (widget, args)
 	return '<span font="Terminus 12"> <span font="Terminus 9">' .. args[2] .. '% </span></span>'
 end, 1, 'BAT0')
 
+function print_net(down_val, up_val)
+	return '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9" color="#7AC82E">' .. down_val .. '</span> <span font="Terminus 7" color="#EEDDDD">↓↑</span> <span font="Terminus 9" color="#46A8C3">' .. up_val .. ' </span></span>'
+end
+
 -- Net widget
 netwidget = wibox.widget.textbox()
-vicious.register(netwidget, vicious.widgets.net, '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9" color="#7AC82E">${eth0 down_kb}</span> <span font="Terminus 7" color="#EEDDDD">↓↑</span> <span font="Terminus 9" color="#46A8C3">${eth0 up_kb} </span></span>', 3)
+vicious.register(netwidget, vicious.widgets.net, function(widget, args)
+	if args['{ppp0 down_kb}'] then
+		return print_net(args['{ppp0 down_kb}'], args['{ppp0 up_kb}'])
+	elseif args['{wlan0 down_kb}'] then
+		return print_net(args['{wlan0 down_kb}'], args['{wlan0 up_kb}'])
+	elseif args['{eth0 down_kb}'] then
+		return print_net(args['{eth0 down_kb}'], args['{eth0 up_kb}'])
+	end
+	return print_net(0, 0)
+end, 3)
 neticon = wibox.widget.imagebox()
 neticon:set_image(beautiful.widget_net)
 netwidget:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(iptraf) end)))
