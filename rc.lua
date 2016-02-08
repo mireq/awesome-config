@@ -232,26 +232,26 @@ mytasklist.buttons = awful.util.table.join(
 -- {{{ Widgets
 
 -- Music widget
-mpdwidget = wibox.widget.textbox()
-mpdicon = wibox.widget.imagebox()
-mpdicon:set_image(beautiful.widget_music)
-mpdicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(musicplr) end)))
-
-vicious.register(mpdwidget, vicious.widgets.mpd,
-function(widget, args)
-	-- play
-	if (args["{state}"] == "Play") then
-    mpdicon:set_image(beautiful.widget_music_on)
-		return "<span background='#313131' font='Terminus 13' rise='2000'> <span font='Terminus 9'>" .. red .. args["{Title}"] .. coldef .. colwhi .. " - " .. coldef .. colwhi  .. args["{Artist}"] .. coldef .. " </span></span>"
-	-- pause
-	elseif (args["{state}"] == "Pause") then
-    mpdicon:set_image(beautiful.widget_music)
-		return "<span background='#313131' font='Terminus 13' rise='2000'> <span font='Terminus 9'>" .. colwhi .. "mpd in pausa" .. coldef .. " </span></span>"
-	else
-    mpdicon:set_image(beautiful.widget_music)
-		return ""
-	end
-end, 1)
+-- mpdwidget = wibox.widget.textbox()
+-- mpdicon = wibox.widget.imagebox()
+-- mpdicon:set_image(beautiful.widget_music)
+-- mpdicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn_with_shell(musicplr) end)))
+-- 
+-- vicious.register(mpdwidget, vicious.widgets.mpd,
+-- function(widget, args)
+-- 	-- play
+-- 	if (args["{state}"] == "Play") then
+--     mpdicon:set_image(beautiful.widget_music_on)
+-- 		return "<span background='#313131' font='Terminus 13' rise='2000'> <span font='Terminus 9'>" .. red .. args["{Title}"] .. coldef .. colwhi .. " - " .. coldef .. colwhi  .. args["{Artist}"] .. coldef .. " </span></span>"
+-- 	-- pause
+-- 	elseif (args["{state}"] == "Pause") then
+--     mpdicon:set_image(beautiful.widget_music)
+-- 		return "<span background='#313131' font='Terminus 13' rise='2000'> <span font='Terminus 9'>" .. colwhi .. "mpd in pausa" .. coldef .. " </span></span>"
+-- 	else
+--     mpdicon:set_image(beautiful.widget_music)
+-- 		return ""
+-- 	end
+-- end, 1)
 
 -- Volume widget
 
@@ -293,7 +293,7 @@ vicious.register(volumewidget, vicious.widgets.volume,
 			volicon:set_image(beautiful.widget_vol_mute)
 		end
  		return '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9">' .. args[1] .. '% </span></span>'
-	end, 1, "Master")
+	end, 15, "Master")
 
 
 -- Mail widget
@@ -336,13 +336,13 @@ mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
 memwidget = wibox.widget.textbox()
-vicious.register(memwidget, vicious.widgets.mem, function(widget, args) return " " .. string.format("%4d", args[2]) .. "MB " end, 13)
+vicious.register(memwidget, vicious.widgets.mem, function(widget, args) return " " .. string.format("%4d", args[2]) .. "MB " end, 3)
 
 -- CPU widget
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.widget_cpu)
 cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu, function(widget, args) return '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9">' .. string.format("%2d", args[1]) .. "% </span></span>" end, 13)
+vicious.register(cpuwidget, vicious.widgets.cpu, function(widget, args) return '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9">' .. string.format("%2d", args[1]) .. "% </span></span>" end, 3)
 cpuicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(tasks, false) end)))
 
 blingbling.popups.htop(cpuwidget, {
@@ -356,7 +356,7 @@ blingbling.popups.htop(cpuwidget, {
 tempicon = wibox.widget.imagebox()
 tempicon:set_image(beautiful.widget_temp)
 tempwidget = wibox.widget.textbox()
-vicious.register(tempwidget, vicious.widgets.thermal, '<span font="Terminus 12"> <span font="Terminus 9">$1°C </span></span>', 9, {"thermal_zone0", "sys"} )
+vicious.register(tempwidget, vicious.widgets.thermal, '<span font="Terminus 12"> <span font="Terminus 9">$1°C </span></span>', 15, {"thermal_zone0", "sys"} )
 
 -- Battery widget
 baticon = wibox.widget.imagebox()
@@ -417,7 +417,7 @@ function (widget, args)
 	else baticon:set_image(beautiful.widget_battery)
 	end
 	return '<span font="Terminus 12"> <span font="Terminus 9">' .. args[2] .. '% </span></span>'
-end, 1, 'BAT0')
+end, 15, 'BAT0')
 
 function print_net(down_val, up_val)
 	return '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9" color="#7AC82E">' .. down_val .. '</span> <span font="Terminus 7" color="#EEDDDD">↓↑</span> <span font="Terminus 9" color="#46A8C3">' .. up_val .. ' </span></span>'
@@ -532,6 +532,14 @@ for s = 1, screen.count() do
 	layout:set_right(right_layout)
 	mywibox[s]:set_widget(layout)
 end
+
+mytimer = timer({ timeout = 5 })
+mytimer:connect_signal("timeout", function()
+	vicious.activate()
+	vicious.suspend()
+end)
+mytimer:start()
+
 
 -- {{{ Mouse bindings
 root.buttons(awful.util.table.join(
@@ -790,7 +798,7 @@ client.connect_signal("manage", function (c, startup)
 
         awful.titlebar(c):set_widget(layout)
         print(c.class)
-        if c.class == 'URxvt' or c.class == 'Firefox' then
+        if c.class == 'URxvt' or c.class == 'Firefox' or c.class == 'google-chrome-unstable' then
             awful.titlebar(c, {size = 0})
         end
     end
