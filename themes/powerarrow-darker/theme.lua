@@ -25,10 +25,10 @@ theme.border_normal                         = "#3F3F3F"
 theme.border_focus                          = "#7F7F7F"
 theme.border_marked                         = "#CC9393"
 
-theme.titlebar_bg_focus                     = "#FFFFFF"
-theme.titlebar_bg_normal                    = "#FFFFFF"
+theme.titlebar_bg_focus                     = "#313131D0"
+theme.titlebar_bg_normal                    = "#1A1A1AD0"
 theme.taglist_fg_focus                      = "#A1D0D0"
-theme.tasklist_bg_normal                     = "#1A1A1A00"
+theme.tasklist_bg_normal                    = "#1A1A1A00"
 theme.tasklist_bg_focus                     = "#1A1A1A00"
 theme.tasklist_fg_focus                     = "#A1D0D0"
 theme.tasklist_font                         = "sans 8"
@@ -82,8 +82,32 @@ theme.widget_mail                           = themes_dir .. "/icons/mail.png"
 theme.widget_mail_notify                    = themes_dir .. "/icons/mail_notify.png"
 theme.awesome_icon                          = themes_dir .. "/icons/awesome_icon.png"
 
-theme.tasklist_floating                     = ""
-theme.tasklist_maximized_horizontal         = ""
-theme.tasklist_maximized_vertical           = "" 
+
+theme.titlebar_close_button_focus               = themes_dir .. "/titlebar/close_focus.png"
+theme.titlebar_close_button_normal              = themes_dir .. "/titlebar/close_normal.png"
+
+theme.titlebar_ontop_button_focus_active        = themes_dir .. "/titlebar/ontop_focus_active.png"
+theme.titlebar_ontop_button_normal_active       = themes_dir .. "/titlebar/ontop_normal_active.png"
+theme.titlebar_ontop_button_focus_inactive      = themes_dir .. "/titlebar/ontop_focus_inactive.png"
+theme.titlebar_ontop_button_normal_inactive     = themes_dir .. "/titlebar/ontop_normal_inactive.png"
+
+theme.titlebar_sticky_button_focus_active       = themes_dir .. "/titlebar/sticky_focus_active.png"
+theme.titlebar_sticky_button_normal_active      = themes_dir .. "/titlebar/sticky_normal_active.png"
+theme.titlebar_sticky_button_focus_inactive     = themes_dir .. "/titlebar/sticky_focus_inactive.png"
+theme.titlebar_sticky_button_normal_inactive    = themes_dir .. "/titlebar/sticky_normal_inactive.png"
+
+theme.titlebar_floating_button_focus_active     = themes_dir .. "/titlebar/floating_focus_active.png"
+theme.titlebar_floating_button_normal_active    = themes_dir .. "/titlebar/floating_normal_active.png"
+theme.titlebar_floating_button_focus_inactive   = themes_dir .. "/titlebar/floating_focus_inactive.png"
+theme.titlebar_floating_button_normal_inactive  = themes_dir .. "/titlebar/floating_normal_inactive.png"
+
+theme.titlebar_maximized_button_focus_active    = themes_dir .. "/titlebar/maximized_focus_active.png"
+theme.titlebar_maximized_button_normal_active   = themes_dir .. "/titlebar/maximized_normal_active.png"
+theme.titlebar_maximized_button_focus_inactive  = themes_dir .. "/titlebar/maximized_focus_inactive.png"
+theme.titlebar_maximized_button_normal_inactive = themes_dir .. "/titlebar/maximized_normal_inactive.png"
+
+--theme.tasklist_floating                     = ""
+--theme.tasklist_maximized_horizontal         = ""
+--theme.tasklist_maximized_vertical           = ""
 
 return theme

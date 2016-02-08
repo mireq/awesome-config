@@ -505,10 +505,10 @@ for s = 1, screen.count() do
 	right_layout:add(volicon)
 	right_layout:add(volumewidget)
 	right_layout:add(arrl_dl)
+	if s == 1 then right_layout:add(wibox.widget.systray()) end
+	right_layout:add(arrl)
 	right_layout:add(calendar)
 	right_layout:add(spr)
-	right_layout:add(arrl)
-	if s == 1 then right_layout:add(wibox.widget.systray()) end
 	right_layout:add(spr)
 	right_layout:add(arrl_ld)
 	right_layout:add(mylayoutbox[s])
@@ -611,6 +611,14 @@ clientkeys = awful.util.table.join(
                 c.border_width = 1
             else
                 c.border_width = 0
+            end
+        end),
+    awful.key({ modkey,           }, "i",
+        function (c)
+            if (c:titlebar_top():geometry()['height'] > 0) then
+                awful.titlebar(c, {size = 0})
+            else
+                awful.titlebar(c)
             end
         end),
     awful.key({ modkey,           }, "n",
@@ -733,7 +741,7 @@ client.connect_signal("manage", function (c, startup)
         end
     end
 
-    local titlebars_enabled = false
+    local titlebars_enabled = true
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- Widgets that are aligned to the left
         local left_layout = wibox.layout.fixed.horizontal()
@@ -769,6 +777,10 @@ client.connect_signal("manage", function (c, startup)
         layout:set_middle(title)
 
         awful.titlebar(c):set_widget(layout)
+        print(c.class)
+        if c.class == 'URxvt' or c.class == 'Firefox' then
+            awful.titlebar(c, {size = 0})
+        end
     end
 end)
 
