@@ -533,10 +533,10 @@ for s = 1, screen.count() do
 	mywibox[s]:set_widget(layout)
 end
 
+vicious.suspend()
 mytimer = timer({ timeout = 5 })
 mytimer:connect_signal("timeout", function()
-	vicious.activate()
-	vicious.suspend()
+	vicious.force({ memwidget, netwidget, tempwidget, cpuwidget, batwidget, volumewidget })
 end)
 mytimer:start()
 
