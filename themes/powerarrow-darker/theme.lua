@@ -103,6 +103,11 @@ theme.titlebar_maximized_button_normal_active   = themes_dir .. "/titlebar/maxim
 theme.titlebar_maximized_button_focus_inactive  = themes_dir .. "/titlebar/maximized_focus_inactive.png"
 theme.titlebar_maximized_button_normal_inactive = themes_dir .. "/titlebar/maximized_normal_inactive.png"
 
+theme.titlebar_minimize_button_focus_active    = themes_dir .. "/titlebar/minimize_focus_active.png"
+theme.titlebar_minimize_button_normal_active   = themes_dir .. "/titlebar/minimize_normal_active.png"
+theme.titlebar_minimize_button_focus_inactive  = themes_dir .. "/titlebar/minimize_focus_inactive.png"
+theme.titlebar_minimize_button_normal_inactive = themes_dir .. "/titlebar/minimize_normal_inactive.png"
+
 --theme.tasklist_floating                     = ""
 --theme.tasklist_maximized_horizontal         = ""
 --theme.tasklist_maximized_vertical           = ""
