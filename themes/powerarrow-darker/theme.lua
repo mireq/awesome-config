@@ -11,8 +11,6 @@ theme = {}
 themes_dir                                  = os.getenv("HOME") .. "/.config/awesome/themes/powerarrow-darker"
 theme.wallpaper                             = themes_dir .. "/wall.jpg"
 
-theme.font                                  = "Terminus 9"
-
 theme.fg_normal                             = "#DCDCCC"
 theme.fg_focus                              = "#F0DFAF"
 theme.fg_urgent                             = "#CC9393"
@@ -31,7 +29,6 @@ theme.taglist_fg_focus                      = "#A1D0D0"
 theme.tasklist_bg_normal                    = "#1A1A1A00"
 theme.tasklist_bg_focus                     = "#1A1A1A00"
 theme.tasklist_fg_focus                     = "#A1D0D0"
-theme.tasklist_font                         = "sans 8"
 theme.textbox_widget_margin_top             = 1
 theme.notify_fg                             = theme.fg_normal
 theme.notify_bg                             = theme.bg_normal
