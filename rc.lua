@@ -778,7 +778,9 @@ client.connect_signal("manage", function (c, startup)
 
 		-- The title goes in the middle
 		local title = awful.titlebar.widget.titlewidget(c)
-		title:buttons(awful.util.table.join(
+		local titleLayout = wibox.layout.align.horizontal()
+		titleLayout:set_middle(title);
+		titleLayout:buttons(awful.util.table.join(
 				awful.button({ }, 1, function()
 					client.focus = c
 					c:raise()
@@ -791,11 +793,12 @@ client.connect_signal("manage", function (c, startup)
 				end)
 				))
 
+
 		-- Now bring it all together
 		local layout = wibox.layout.align.horizontal()
 		layout:set_left(left_layout)
 		layout:set_right(right_layout)
-		layout:set_middle(title)
+		layout:set_middle(titleLayout)
 
 		awful.titlebar(c):set_widget(layout)
 		print(c.class)
