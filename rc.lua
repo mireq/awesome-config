@@ -801,7 +801,6 @@ client.connect_signal("manage", function (c, startup)
 		layout:set_middle(titleLayout)
 
 		awful.titlebar(c):set_widget(layout)
-		print(c.class)
 		if c.class == 'URxvt' or c.class == 'Firefox' or c.class == 'google-chrome-unstable' then
 			awful.titlebar(c, {size = 0})
 		end
