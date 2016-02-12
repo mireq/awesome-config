@@ -242,11 +242,11 @@ mytasklist.buttons = awful.util.table.join(
 -- 	-- play
 -- 	if (args["{state}"] == "Play") then
 --     mpdicon:set_image(beautiful.widget_music_on)
--- 		return "<span background='#313131' font='Terminus 13' rise='2000'> <span font='Terminus 9'>" .. red .. args["{Title}"] .. coldef .. colwhi .. " - " .. coldef .. colwhi  .. args["{Artist}"] .. coldef .. " </span></span>"
+-- 		return "<span background='#313131' font='sans 13' rise='2000'> <span font='Terminus 9'>" .. red .. args["{Title}"] .. coldef .. colwhi .. " - " .. coldef .. colwhi  .. args["{Artist}"] .. coldef .. " </span></span>"
 -- 	-- pause
 -- 	elseif (args["{state}"] == "Pause") then
 --     mpdicon:set_image(beautiful.widget_music)
--- 		return "<span background='#313131' font='Terminus 13' rise='2000'> <span font='Terminus 9'>" .. colwhi .. "mpd in pausa" .. coldef .. " </span></span>"
+-- 		return "<span background='#313131' font='sans 13' rise='2000'> <span font='Terminus 9'>" .. colwhi .. "mpd in pausa" .. coldef .. " </span></span>"
 -- 	else
 --     mpdicon:set_image(beautiful.widget_music)
 -- 		return ""
@@ -292,7 +292,7 @@ vicious.register(volumewidget, vicious.widgets.volume,
 		else
 			volicon:set_image(beautiful.widget_vol_mute)
 		end
- 		return '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9">' .. args[1] .. '% </span></span>'
+		return '<span background="#313131" font="sans 13" rise="2000"> <span font="Terminus 9">' .. args[1] .. '% </span></span>'
 	end, 15, "Master")
 
 
@@ -336,13 +336,13 @@ mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
 memwidget = wibox.widget.textbox()
-vicious.register(memwidget, vicious.widgets.mem, function(widget, args) return ' <span font="Terminus 9">' .. string.format("%4d", args[2]) .. "MB </span>" end, 3)
+vicious.register(memwidget, vicious.widgets.mem, function(widget, args) return '<span font="sans 13" rise="2000"> <span font="Terminus 9">' .. string.format("%4d", args[2]) .. "MB</span> </span>" end, 3)
 
 -- CPU widget
 cpuicon = wibox.widget.imagebox()
 cpuicon:set_image(beautiful.widget_cpu)
 cpuwidget = wibox.widget.textbox()
-vicious.register(cpuwidget, vicious.widgets.cpu, function(widget, args) return '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9">' .. string.format("%2d", args[1]) .. "% </span></span>" end, 3)
+vicious.register(cpuwidget, vicious.widgets.cpu, function(widget, args) return '<span background="#313131" font="sans 13" rise="2000"> <span font="Terminus 9">' .. string.format("%2d", args[1]) .. "% </span></span>" end, 3)
 cpuicon:buttons(awful.util.table.join(awful.button({ }, 1, function () awful.util.spawn(tasks, false) end)))
 
 blingbling.popups.htop(cpuwidget, {
@@ -356,7 +356,7 @@ blingbling.popups.htop(cpuwidget, {
 tempicon = wibox.widget.imagebox()
 tempicon:set_image(beautiful.widget_temp)
 tempwidget = wibox.widget.textbox()
-vicious.register(tempwidget, vicious.widgets.thermal, '<span font="Terminus 12"> <span font="Terminus 9">$1°C </span></span>', 15, {"thermal_zone0", "sys"} )
+vicious.register(tempwidget, vicious.widgets.thermal, '<span font="sans 13" rise="2000"> <span font="Terminus 9">$1°C</span> </span>', 15, {"thermal_zone0", "sys"} )
 
 -- Battery widget
 baticon = wibox.widget.imagebox()
@@ -387,7 +387,7 @@ function (widget, args)
 	-- plugged
 	if (batstate() == 'Cable plugged') then
 		baticon:set_image(beautiful.widget_ac)
-		return '<span font="Terminus 12"> <span font="Terminus 9">' .. args[2] .. '% </span></span>'
+		return '<span font="sans 13" rise="2000"> <span font="Terminus 9">' .. args[2] .. '%</span> </span>'
 	-- critical
 	elseif (args[2] <= 5 and batstate() == 'Discharging') then
 		baticon:set_image(beautiful.widget_battery_empty)
@@ -416,11 +416,11 @@ function (widget, args)
 		})
 	else baticon:set_image(beautiful.widget_battery)
 	end
-	return '<span font="Terminus 12"> <span font="Terminus 9">' .. args[2] .. '% </span></span>'
+	return '<span font="sans 13" rise="2000"> <span font="Terminus 9">' .. args[2] .. '%</span> </span>'
 end, 15, 'BAT0')
 
 function print_net(down_val, up_val)
-	return '<span background="#313131" font="Terminus 13" rise="2000"> <span font="Terminus 9" color="#7AC82E">' .. down_val .. '</span> <span font="Terminus 7" color="#EEDDDD">↓↑</span> <span font="Terminus 9" color="#46A8C3">' .. up_val .. ' </span></span>'
+	return '<span background="#313131" font="sans 13" rise="2000"> <span font="Terminus 9" color="#7AC82E">' .. down_val .. '</span> <span font="Terminus 7" color="#EEDDDD">↓↑</span> <span font="Terminus 9" color="#46A8C3">' .. up_val .. '</span> </span>'
 end
 
 -- Net widget
@@ -447,7 +447,7 @@ blingbling.popups.netstat(netwidget, {
 -- Textclock widget
 clockicon = wibox.widget.imagebox()
 clockicon:set_image(beautiful.widget_clock)
-mytextclock = awful.widget.textclock("<span font=\"Terminus 12\"><span font=\"Terminus 9\" color=\"#DDDDFF\"> %a %d %b  %H:%M</span></span>")
+mytextclock = awful.widget.textclock('<span font="sans 13"> <span font="Terminus 9" color="#DDDDFF"> %a %d %b  %H:%M</span> </span>')
 
 calendar = blingbling.calendar()
 
