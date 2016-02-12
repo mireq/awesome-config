@@ -336,7 +336,7 @@ mygmailimg = wibox.widget.imagebox(beautiful.widget_mail)
 memicon = wibox.widget.imagebox()
 memicon:set_image(beautiful.widget_mem)
 memwidget = wibox.widget.textbox()
-vicious.register(memwidget, vicious.widgets.mem, function(widget, args) return " " .. string.format("%4d", args[2]) .. "MB " end, 3)
+vicious.register(memwidget, vicious.widgets.mem, function(widget, args) return ' <span font="Terminus 9">' .. string.format("%4d", args[2]) .. "MB </span>" end, 3)
 
 -- CPU widget
 cpuicon = wibox.widget.imagebox()
