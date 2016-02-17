@@ -12,7 +12,7 @@ themes_dir                                  = os.getenv("HOME") .. "/.config/awe
 theme.wallpaper                             = themes_dir .. "/wall.jpg"
 
 theme.fg_normal                             = "#DCDCCC"
-theme.fg_focus                              = "#F0DFAF"
+theme.fg_focus                              = "#A1D0D0"
 theme.fg_urgent                             = "#CC9393"
 theme.bg_normal                             = "#1A1A1AD0"
 theme.bg_focus                              = "#313131D0"
