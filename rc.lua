@@ -635,11 +635,7 @@ clientkeys = awful.util.table.join(
         end),
     awful.key({ modkey,           }, "i",
         function (c)
-            if (c:titlebar_top():geometry()['height'] > 0) then
-                awful.titlebar(c, {size = 0})
-            else
-                awful.titlebar(c)
-            end
+            awful.titlebar.toggle(c, "left");
         end),
     awful.key({ modkey,           }, "n",
         function (c)
@@ -800,9 +796,10 @@ client.connect_signal("manage", function (c, startup)
 		layout:set_right(right_layout)
 		layout:set_middle(titleLayout)
 
-		awful.titlebar(c):set_widget(layout)
+		local titlebar_layout = wibox.layout.rotate(layout, "east")
+		awful.titlebar(c, {position = "left"}):set_widget(titlebar_layout)
 		if c.class == 'URxvt' or c.class == 'Firefox' or c.class == 'google-chrome-unstable' then
-			awful.titlebar(c, {size = 0})
+			awful.titlebar.hide(c, "left");
 		end
 	end
 end)
