@@ -85,7 +85,7 @@ altkey = "Mod1"
 
 
 -- Additional settings
-titlebar_position = "top"
+titlebar_position = "right"
 
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -764,42 +764,74 @@ client.connect_signal("manage", function (c, startup)
 
 	local titlebars_enabled = true
 	if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
-		-- Secondary widgets (left or bottom)
-		local secondary_layout = wibox.layout.fixed.horizontal()
-		secondary_layout:add(awful.titlebar.widget.floatingbutton(c))
-		--secondary_layout:add(awful.titlebar.widget.stickybutton(c))
-		secondary_layout:add(awful.titlebar.widget.ontopbutton(c))
-		secondary_layout:add(awful.titlebar.widget.iconwidget(c))
+		local secondary_layout, primary_layout, title_layout, layout = nil;
+		if titlebar_position == "top" or titlebar_position == "bottom" then
+			-- Secondary widgets (left or bottom)
+			secondary_layout = wibox.layout.fixed.horizontal()
+			secondary_layout:add(awful.titlebar.widget.floatingbutton(c))
+			--secondary_layout:add(awful.titlebar.widget.stickybutton(c))
+			secondary_layout:add(awful.titlebar.widget.ontopbutton(c))
+			secondary_layout:add(awful.titlebar.widget.iconwidget(c))
 
-		-- Primary widgets (top right)
-		local primary_layout = wibox.layout.fixed.horizontal()
-		primary_layout:add(awful.titlebar.widget.minimizebutton(c))
-		primary_layout:add(awful.titlebar.widget.maximizedbutton(c))
-		primary_layout:add(awful.titlebar.widget.closebutton(c))
+			-- Primary widgets (top right)
+			primary_layout = wibox.layout.fixed.horizontal()
+			primary_layout:add(awful.titlebar.widget.minimizebutton(c))
+			primary_layout:add(awful.titlebar.widget.maximizedbutton(c))
+			primary_layout:add(awful.titlebar.widget.closebutton(c))
 
-		-- The title goes in the middle
-		local title = awful.titlebar.widget.titlewidget(c)
-		local titleLayout = wibox.layout.align.horizontal()
-		titleLayout:set_middle(title);
-		titleLayout:buttons(awful.util.table.join(
-				awful.button({ }, 1, function()
-					client.focus = c
-					c:raise()
-					awful.mouse.client.move(c)
-				end),
-				awful.button({ }, 3, function()
-					client.focus = c
-					c:raise()
-					awful.mouse.client.resize(c)
-				end)
-				))
+			-- The title goes in the middle
+			local title = awful.titlebar.widget.titlewidget(c)
+			title_layout = wibox.layout.align.horizontal()
+			title_layout:set_middle(title);
 
+			-- Now bring it all together
+			layout = wibox.layout.align.horizontal()
+			layout:set_left(secondary_layout)
+			layout:set_right(primary_layout)
+			layout:set_middle(title_layout)
+		else
+			-- Secondary widgets (left or bottom)
+			secondary_layout = wibox.layout.fixed.vertical()
+			secondary_layout:add(awful.titlebar.widget.iconwidget(c))
+			--secondary_layout:add(awful.titlebar.widget.stickybutton(c))
+			secondary_layout:add(awful.titlebar.widget.ontopbutton(c))
+			secondary_layout:add(awful.titlebar.widget.floatingbutton(c))
 
-		-- Now bring it all together
-		local layout = wibox.layout.align.horizontal()
-		layout:set_left(secondary_layout)
-		layout:set_right(primary_layout)
-		layout:set_middle(titleLayout)
+			-- Primary widgets (top right)
+			primary_layout = wibox.layout.fixed.vertical()
+			primary_layout:add(awful.titlebar.widget.closebutton(c))
+			primary_layout:add(awful.titlebar.widget.maximizedbutton(c))
+			primary_layout:add(awful.titlebar.widget.minimizebutton(c))
+
+			-- The title goes in the middle
+			local title = awful.titlebar.widget.titlewidget(c)
+			title_layout = wibox.layout.align.horizontal()
+			title_layout:set_middle(title);
+
+			-- Now bring it all together
+			layout = wibox.layout.align.vertical()
+			layout:set_top(primary_layout)
+			layout:set_bottom(secondary_layout)
+			local rotate = "east"
+			if titlebar_position == "right" then
+				rotate = "west"
+			end
+			layout:set_middle(wibox.layout.rotate(title_layout, rotate))
+		end
+
+		title_layout:buttons(awful.util.table.join(
+			awful.button({ }, 1, function()
+				client.focus = c
+				c:raise()
+				awful.mouse.client.move(c)
+			end),
+			awful.button({ }, 3, function()
+				client.focus = c
+				c:raise()
+				awful.mouse.client.resize(c)
+			end)
+			)
+		)
 
 		--local titlebar_layout = wibox.layout.rotate(layout, "east")
 		--awful.titlebar(c, {position = titlebar_position}):set_widget(titlebar_layout)
