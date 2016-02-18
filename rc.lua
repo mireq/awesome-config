@@ -83,6 +83,11 @@ musicplr = terminal .. " -g 130x34-320+16 -e ncmpcpp "
 modkey = "Mod4"
 altkey = "Mod1"
 
+
+-- Additional settings
+titlebar_position = "top"
+
+
 -- Table of layouts to cover with awful.layout.inc, order matters.
 layouts = {
 	awful.layout.suit.floating,             -- 1
@@ -635,7 +640,7 @@ clientkeys = awful.util.table.join(
         end),
     awful.key({ modkey,           }, "i",
         function (c)
-            awful.titlebar.toggle(c, "left");
+            awful.titlebar.toggle(c, titlebar_position);
         end),
     awful.key({ modkey,           }, "n",
         function (c)
@@ -759,18 +764,18 @@ client.connect_signal("manage", function (c, startup)
 
 	local titlebars_enabled = true
 	if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
-		-- Widgets that are aligned to the left
-		local left_layout = wibox.layout.fixed.horizontal()
-		left_layout:add(awful.titlebar.widget.floatingbutton(c))
-		--left_layout:add(awful.titlebar.widget.stickybutton(c))
-		left_layout:add(awful.titlebar.widget.ontopbutton(c))
-		left_layout:add(awful.titlebar.widget.iconwidget(c))
+		-- Secondary widgets (left or bottom)
+		local secondary_layout = wibox.layout.fixed.horizontal()
+		secondary_layout:add(awful.titlebar.widget.floatingbutton(c))
+		--secondary_layout:add(awful.titlebar.widget.stickybutton(c))
+		secondary_layout:add(awful.titlebar.widget.ontopbutton(c))
+		secondary_layout:add(awful.titlebar.widget.iconwidget(c))
 
-		-- Widgets that are aligned to the right
-		local right_layout = wibox.layout.fixed.horizontal()
-		right_layout:add(awful.titlebar.widget.minimizebutton(c))
-		right_layout:add(awful.titlebar.widget.maximizedbutton(c))
-		right_layout:add(awful.titlebar.widget.closebutton(c))
+		-- Primary widgets (top right)
+		local primary_layout = wibox.layout.fixed.horizontal()
+		primary_layout:add(awful.titlebar.widget.minimizebutton(c))
+		primary_layout:add(awful.titlebar.widget.maximizedbutton(c))
+		primary_layout:add(awful.titlebar.widget.closebutton(c))
 
 		-- The title goes in the middle
 		local title = awful.titlebar.widget.titlewidget(c)
@@ -792,14 +797,15 @@ client.connect_signal("manage", function (c, startup)
 
 		-- Now bring it all together
 		local layout = wibox.layout.align.horizontal()
-		layout:set_left(left_layout)
-		layout:set_right(right_layout)
+		layout:set_left(secondary_layout)
+		layout:set_right(primary_layout)
 		layout:set_middle(titleLayout)
 
-		local titlebar_layout = wibox.layout.rotate(layout, "east")
-		awful.titlebar(c, {position = "left"}):set_widget(titlebar_layout)
+		--local titlebar_layout = wibox.layout.rotate(layout, "east")
+		--awful.titlebar(c, {position = titlebar_position}):set_widget(titlebar_layout)
+		awful.titlebar(c, {position = titlebar_position}):set_widget(layout)
 		if c.class == 'URxvt' or c.class == 'Firefox' or c.class == 'google-chrome-unstable' then
-			awful.titlebar.hide(c, "left");
+			awful.titlebar.hide(c, titlebar_position);
 		end
 	end
 end)
