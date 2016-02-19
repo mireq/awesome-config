@@ -419,7 +419,10 @@ function (widget, args)
 			screen = 1,
 			ontop = true,
 		})
-	else baticon:set_image(beautiful.widget_battery)
+	elseif (batstate() == 'Charging') then
+		baticon:set_image(beautiful.widget_battery_charging)
+	else
+		baticon:set_image(beautiful.widget_battery)
 	end
 	return '<span font="sans 13" rise="2000"> <span font="Terminus 9">' .. args[2] .. '%</span> </span>'
 end, 15, 'BAT0')
