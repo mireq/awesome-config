@@ -389,12 +389,13 @@ end
 batwidget = wibox.widget.textbox()
 vicious.register(batwidget, vicious.widgets.bat,
 function (widget, args)
+	local state = batstate()
 	-- plugged
-	if (batstate() == 'Cable plugged') then
+	if (state == 'Cable plugged') then
 		baticon:set_image(beautiful.widget_ac)
 		return '<span font="sans 13" rise="2000"> <span font="Terminus 9">' .. args[2] .. '%</span> </span>'
 	-- critical
-	elseif (args[2] <= 5 and batstate() == 'Discharging') then
+	elseif (args[2] <= 5 and state == 'Discharging') then
 		baticon:set_image(beautiful.widget_battery_empty)
 		naughty.notify({
 			text = "Battery empty.",
@@ -407,7 +408,7 @@ function (widget, args)
 			ontop = true,
 		})
 	-- low
-	elseif (args[2] <= 10 and batstate() == 'Discharging') then
+	elseif (args[2] <= 10 and state == 'Discharging') then
 		baticon:set_image(beautiful.widget_battery_low)
 		naughty.notify({
 			text = "Battery status low.",
@@ -419,7 +420,7 @@ function (widget, args)
 			screen = 1,
 			ontop = true,
 		})
-	elseif (batstate() == 'Charging') then
+	elseif (state == 'Charging') then
 		baticon:set_image(beautiful.widget_battery_charging)
 	else
 		baticon:set_image(beautiful.widget_battery)
