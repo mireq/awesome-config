@@ -7,3 +7,6 @@
 [submodule "vicious"]
 	path = vicious
 	url = http://git.sysphere.org/vicious/
+[submodule "simpledbus"]
+	path = simpledbus
+	url = https://github.com/kstep/simpledbus
