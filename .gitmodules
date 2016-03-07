@@ -10,3 +10,6 @@
 [submodule "simpledbus"]
 	path = simpledbus
 	url = https://github.com/kstep/simpledbus
+[submodule "ldbus"]
+	path = ldbus
+	url = https://github.com/daurnimator/ldbus.git
