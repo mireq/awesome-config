@@ -1,5 +1,7 @@
 local capi = { dbus = dbus }
 
+-- https://github.com/pavouk/lgi/
+
 
 function rescan_devices()
 	print("Scanning devices")
