@@ -224,6 +224,9 @@ local function scan_finished(devices)
 			if data.Mounted then
 				status = 'mounted';
 			end
+			if not bus_type then
+				bus_type = 'default';
+			end
 			icon_name = 'removable_' .. bus_type .. '_' .. status;
 			if beautiful[icon_name] == nil then
 				bus_type = 'default'
