@@ -17,6 +17,7 @@ naughty         = require("naughty")
 vicious         = require("vicious")
 scratch         = require("scratch")
 blingbling      = require("blingbling")
+udisks          = require("udisks")
 
 -- }}}
 
@@ -74,6 +75,7 @@ chat = terminal .. " -e irssi "
 tasks = terminal .. " -e htop "
 iptraf = terminal .. " -g 180x54-20+34 -e sudo iptraf-ng -i all "
 musicplr = terminal .. " -g 130x34-320+16 -e ncmpcpp "
+udisks.filemanager = "konqueror"
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -527,6 +529,7 @@ for s = 1, screen.count() do
 	right_layout:add(volumewidget)
 	right_layout:add(arrl_dl)
 	if s == 1 then right_layout:add(wibox.widget.systray()) end
+	if s == 1 then right_layout:add(udisks.widget) end
 	right_layout:add(arrl)
 	right_layout:add(calendar)
 	right_layout:add(spr)
@@ -543,7 +546,7 @@ for s = 1, screen.count() do
 end
 
 vicious.suspend()
-mytimer = timer({ timeout = 5 })
+mytimer = timer({ timeout = 10 })
 mytimer:connect_signal("timeout", function()
 	vicious.force({ memwidget, netwidget, tempwidget, cpuwidget, batwidget, volumewidget })
 end)
@@ -754,18 +757,6 @@ client.connect_signal("manage", function (c, startup)
 		end
 	end)
 
-	if not startup then
-		-- Set the windows at the slave,
-		-- i.e. put it at the end of others instead of setting it master.
-		-- awful.client.setslave(c)
-
-		-- Put windows in a smart way, only if they does not set an initial position.
-		if not c.size_hints.user_position and not c.size_hints.program_position then
-			awful.placement.no_overlap(c)
-			awful.placement.no_offscreen(c)
-		end
-	end
-
 	local titlebars_enabled = true
 	if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
 		local secondary_layout, primary_layout, title_layout, layout = nil;
@@ -842,6 +833,18 @@ client.connect_signal("manage", function (c, startup)
 		awful.titlebar(c, {position = titlebar_position}):set_widget(layout)
 		if c.class == 'URxvt' or c.class == 'Firefox' or c.class == 'google-chrome-unstable' then
 			awful.titlebar.hide(c, titlebar_position);
+		end
+	end
+
+	if not startup then
+		-- Set the windows at the slave,
+		-- i.e. put it at the end of others instead of setting it master.
+		-- awful.client.setslave(c)
+
+		-- Put windows in a smart way, only if they does not set an initial position.
+		if not c.size_hints.user_position and not c.size_hints.program_position then
+			awful.placement.no_overlap(c)
+			awful.placement.no_offscreen(c)
 		end
 	end
 end)

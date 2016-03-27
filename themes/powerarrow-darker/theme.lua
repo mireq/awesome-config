@@ -80,6 +80,10 @@ theme.widget_mail                           = themes_dir .. "/icons/mail.png"
 theme.widget_mail_notify                    = themes_dir .. "/icons/mail_notify.png"
 theme.awesome_icon                          = themes_dir .. "/icons/awesome_icon.png"
 
+theme.removable_default_mounted             = themes_dir .. "/icons/removable_default_mounted.png"
+theme.removable_default_unmounted           = themes_dir .. "/icons/removable_default_unmounted.png"
+theme.removable_usb_mounted                 = themes_dir .. "/icons/removable_usb_mounted.png"
+theme.removable_usb_unmounted               = themes_dir .. "/icons/removable_usb_unmounted.png"
 
 theme.titlebar_close_button_focus               = themes_dir .. "/titlebar/close_focus.png"
 theme.titlebar_close_button_normal              = themes_dir .. "/titlebar/close_normal.png"
