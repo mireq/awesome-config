@@ -47,7 +47,7 @@ local function mount_device(device)
 
 	if module.filemanager == nil then
 	else
-		awful.util.spawn_with_shell(module.filemanager .. ' ' .. device.Mounted);
+		awful.util.spawn_with_shell(module.filemanager .. ' "' .. device.Mounted .. '"');
 	end
 end
 
