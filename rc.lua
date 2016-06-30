@@ -728,6 +728,10 @@ awful.rules.rules = {
                      buttons = clientbuttons } },
     { rule = { class = "MPlayer" },
       properties = { floating = true } },
+    { rule = { class = "Wine" },
+      properties = { border_width = 0 } },
+    { rule = { class = "Kruler" },
+      properties = { border_width = 0 } },
     { rule = { class = "pinentry" },
       properties = { floating = true } },
     { rule = { class = "gimp" },
@@ -764,7 +768,7 @@ client.connect_signal("manage", function (c, startup)
 			-- Secondary widgets (left or bottom)
 			secondary_layout = wibox.layout.fixed.horizontal()
 			secondary_layout:add(awful.titlebar.widget.floatingbutton(c))
-			--secondary_layout:add(awful.titlebar.widget.stickybutton(c))
+			secondary_layout:add(awful.titlebar.widget.stickybutton(c))
 			secondary_layout:add(awful.titlebar.widget.ontopbutton(c))
 			secondary_layout:add(awful.titlebar.widget.iconwidget(c))
 
@@ -788,7 +792,7 @@ client.connect_signal("manage", function (c, startup)
 			-- Secondary widgets (left or bottom)
 			secondary_layout = wibox.layout.fixed.vertical()
 			secondary_layout:add(awful.titlebar.widget.iconwidget(c))
-			--secondary_layout:add(awful.titlebar.widget.stickybutton(c))
+			secondary_layout:add(awful.titlebar.widget.stickybutton(c))
 			secondary_layout:add(awful.titlebar.widget.ontopbutton(c))
 			secondary_layout:add(awful.titlebar.widget.floatingbutton(c))
 
@@ -831,7 +835,7 @@ client.connect_signal("manage", function (c, startup)
 		--local titlebar_layout = wibox.layout.rotate(layout, "east")
 		--awful.titlebar(c, {position = titlebar_position}):set_widget(titlebar_layout)
 		awful.titlebar(c, {position = titlebar_position}):set_widget(layout)
-		if c.class == 'URxvt' or c.class == 'Firefox' or c.class == 'google-chrome-unstable' then
+		if c.class == 'URxvt' or c.class == 'Firefox' or c.class == 'google-chrome-unstable' or c.class == "Wine" or c.class == "Kruler" then
 			awful.titlebar.hide(c, titlebar_position);
 		end
 	end
@@ -843,6 +847,7 @@ client.connect_signal("manage", function (c, startup)
 
 		-- Put windows in a smart way, only if they does not set an initial position.
 		if not c.size_hints.user_position and not c.size_hints.program_position then
+			awful.placement.centered(c, nil)
 			awful.placement.no_overlap(c)
 			awful.placement.no_offscreen(c)
 		end
