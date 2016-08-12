@@ -836,7 +836,7 @@ client.connect_signal("manage", function (c, startup)
 		--local titlebar_layout = wibox.layout.rotate(layout, "east")
 		--awful.titlebar(c, {position = titlebar_position}):set_widget(titlebar_layout)
 		awful.titlebar(c, {position = titlebar_position}):set_widget(layout)
-		if c.class == 'URxvt' or c.class == 'Firefox' or c.class == 'google-chrome-unstable' or c.class == "Wine" or c.class == "kruler" then
+		if c.class == 'URxvt' or c.class == 'Firefox' or c.class == 'Google-chrome-unstable' or c.class == "Wine" or c.class == "kruler" then
 			awful.titlebar.hide(c, titlebar_position);
 		end
 	end
